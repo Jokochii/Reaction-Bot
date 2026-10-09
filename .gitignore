@@ -1,0 +1,23 @@
+# Secrets - never commit
+.env
+.env.*
+!.env.example
+
+# Python environment and caches
+.venv/
+__pycache__/
+*.pyc
+
+# Runtime data from the bot (user IDs, logs, cached images)
+Local-Cache/Reminders.json
+Local-Cache/bot.log
+Local-Cache/stored_images/
+*.log
+
+# Editor settings
+.idea/
+.vscode/
+
+# OS clutter
+Thumbs.db
+desktop.ini
