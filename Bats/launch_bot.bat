@@ -1,2 +1,3 @@
 @echo off
-start /b pythonw "D:\Reaction Bot\bot.py"
+cd /d "%~dp0.."
+start "" /b ".venv\Scripts\pythonw.exe" Python\bot.py
