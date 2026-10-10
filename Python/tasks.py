@@ -6,7 +6,7 @@ import aiofiles
 import urllib.request
 from datetime import datetime
 from discord.ext import tasks
-from config import DB_FILE
+from config import DB_FILE, IMAGE_DIR
 from parsers import extract_readybot_data
 
 db_lock = asyncio.Lock()
@@ -24,7 +24,7 @@ def load_database():
 async def save_database(data):
     async with db_lock:
         try:
-            image_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "stored_images")
+            image_folder = str(IMAGE_DIR)
             if not os.path.exists(image_folder): os.makedirs(image_folder)
 
             for msg_id, payload in data.items():
@@ -93,7 +93,7 @@ async def check_reminder_deadlines():
 
                 all_embeds = [embed]
                 discord_files = []
-                image_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "stored_images")
+                image_folder = str(IMAGE_DIR)
 
                 if img_list:
                     for idx, img_path in enumerate(img_list):
@@ -135,7 +135,7 @@ async def check_reminder_deadlines():
 
             if (target_date - now).total_seconds() < -7776000:
                 if "raw_images" in db[msg_id]:
-                    image_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "stored_images")
+                    image_folder = str(IMAGE_DIR)
                     for img_path in db[msg_id]["raw_images"]:
                         if img_path.startswith("local_"):
                             clean_target = os.path.join(image_folder, img_path.replace("local_", ""))

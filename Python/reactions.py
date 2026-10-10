@@ -1,7 +1,8 @@
+import os
 import discord
 import asyncio
 from datetime import datetime
-from config import WATCHED_CHANNELS, TARGET_EMOJI, COOLDOWNS, PROCESSING_REACTIONS
+from config import WATCHED_CHANNELS, TARGET_EMOJI, COOLDOWNS, PROCESSING_REACTIONS, IMAGE_DIR
 from parsers import parse_date_from_text, extract_readybot_data
 from tasks import load_database, save_database
 
@@ -99,7 +100,7 @@ def setup_reactions(bot):
                     await member.send(embed=opt_out)
                 except Exception:
                     pass
-                print(f"➖ Opt-Out: {member.name} stopped tracking '{item_title}'")
+                print(f"Opt-Out: {member.name} stopped tracking '{item_title}'")
             else:
                 if uid_str not in db[msg_key]["users"]:
                     db[msg_key]["users"].append(uid_str)
@@ -146,7 +147,7 @@ def setup_reactions(bot):
                         if img_path.startswith("local_"):
 
                             import os
-                            image_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), "stored_images")
+                            image_folder = str(IMAGE_DIR)
                             true_path = os.path.join(image_folder, img_path.replace("local_", ""))
                             if os.path.exists(true_path):
                                 filename = os.path.basename(true_path)
